@@ -91,7 +91,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="h-screen w-full flex flex-col items-center justify-center" style={{ height: "calc(100vh - 70px)" }}>
-        <div className="text-3xl text-center font-semibold w-[400px] overflow">
+        <div className="text-3xl text-center font-semibold w-[200px] md:w-[400px] overflow">
           {editableItem === "businessDescription" ? (
             <input
               type="text"
@@ -110,7 +110,7 @@ const NavBar = () => {
             </span>
           )}
         </div>
-        <div className="text-center lg:w-[400px] mt-[20px]">
+        <div className="text-center w-[250px] md:w-[400px] mt-[20px]">
           {editableItem === "revolutionStatement" ? (
             <input
               type="text"
