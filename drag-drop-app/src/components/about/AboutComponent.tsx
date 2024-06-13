@@ -75,7 +75,7 @@ const AboutComponent: React.FC = () => {
           className="font-bold text-2xl md:w-[500px] text-center mt-4"
         />
       ) : (
-        <div onDoubleClick={handleTitleDoubleClick} className="font-bold text-2xl w-[500px] text-center mt-4">
+        <div onDoubleClick={handleTitleDoubleClick} className="font-bold text-2xl w-[500px] text-center mt-8">
           {title}
         </div>
       )}

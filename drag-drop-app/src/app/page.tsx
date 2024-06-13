@@ -1,6 +1,7 @@
 import Link from "next/link";
 import NavBar from "@/components/NavBar";
 import AboutComponent from "@/components/about/AboutComponent";
+import ServicesComponent from "@/components/services/ServicesComponent";
 export default function Home() {
   return (
     <>
@@ -8,6 +9,7 @@ export default function Home() {
       <NavBar />
     </div>
     <AboutComponent />
+    <ServicesComponent />
     
     </>
 
