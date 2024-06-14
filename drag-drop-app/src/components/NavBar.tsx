@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import React, { useState, ChangeEvent } from "react";
+import { FaEdit } from "react-icons/fa";
 
 type NavItem = "logo" | "home" | "shop" | "about" | "contact" | "businessDescription" | "revolutionStatement";
 
@@ -16,6 +17,8 @@ const NavBar = () => {
     businessDescription: "Business Hand In Hand with Your Technology",
     revolutionStatement: "We are leading a revolution with our next-generation cloud-native technology platform",
   });
+
+  const [backgroundImage, setBackgroundImage] = useState<string>("url('/images/home/backgroundImageHomePage.jpg')");
 
   const handleItemClick = (item: NavItem) => {
     setHighlightedItem(item);
@@ -36,10 +39,23 @@ const NavBar = () => {
     setEditableItem(null);
   };
 
+  const handleBackgroundImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setBackgroundImage(`url(${e.target.result})`);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const inputStyle = "bg-transparent border-none outline-none text-white p-0";
 
   return (
-    <div className="text-white">
+    <div className="text-white h-screen" style={{ backgroundImage: backgroundImage, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
       <div className="border-b p-4">
         <div className="flex justify-between items-center">
           <div className="font-bold text-xl">
@@ -90,7 +106,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div className="h-screen w-full flex flex-col items-center justify-center" style={{ height: "calc(100vh - 70px)" }}>
+      <div className="flex flex-col items-center justify-center h-full">
         <div className="text-3xl text-center font-semibold w-[200px] md:w-[400px] overflow">
           {editableItem === "businessDescription" ? (
             <input
@@ -128,6 +144,18 @@ const NavBar = () => {
               {values.revolutionStatement}
             </span>
           )}
+        </div>
+        <div className="absolute bottom-4 right-4">
+          <label htmlFor="bgImageInput">
+            <FaEdit className="text-white cursor-pointer text-2xl" />
+          </label>
+          <input
+            id="bgImageInput"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleBackgroundImageChange}
+          />
         </div>
       </div>
     </div>
