@@ -44,9 +44,7 @@ const NavBar = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        if (e.target?.result) {
-          setBackgroundImage(`url(${e.target.result})`);
-        }
+        setBackgroundImage(`url(${e.target?.result})`);
       };
       reader.readAsDataURL(file);
     }
@@ -146,11 +144,11 @@ const NavBar = () => {
           )}
         </div>
         <div className="absolute bottom-4 right-4">
-          <label htmlFor="bgImageInput">
+          <label htmlFor="bgImageInputNavBar">
             <FaEdit className="text-white cursor-pointer text-2xl" />
           </label>
           <input
-            id="bgImageInput"
+            id="bgImageInputNavBar"
             type="file"
             accept="image/*"
             className="hidden"

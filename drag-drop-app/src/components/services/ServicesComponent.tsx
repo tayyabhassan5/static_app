@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent,MouseEvent } from "react";
+import React, { useState, ChangeEvent, MouseEvent } from "react";
 import { FaEdit } from "react-icons/fa";
 import ServicePageTwo from "./ServicePageTwo";
 
@@ -41,14 +41,13 @@ const ServicesComponent = () => {
   };
 
   const handleBackgroundImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("coming here ")
     const file = e.target.files?.[0];
-    console.log("======",file)
-  
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setBackgroundImage(`url(${e.target?.result})`);
+        if (e.target?.result) {
+          setBackgroundImage(`url(${e.target.result})`);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -94,12 +93,12 @@ const ServicesComponent = () => {
             )}
           </div>
         </div>
-        <div className="absolute border border-2 bottom-4 right-4">
-          <label htmlFor="bgImageInput">
-            <FaEdit className="text-white cursor-pointer text-2xl"/>
+        <div className="absolute bottom-4 right-4">
+          <label htmlFor="bgImageInputServices">
+            <FaEdit className="text-white cursor-pointer text-2xl" />
           </label>
           <input
-            id="bgImageInput"
+            id="bgImageInputServices"
             type="file"
             accept="image/*"
             className="hidden"
@@ -107,6 +106,7 @@ const ServicesComponent = () => {
           />
         </div>
       </div>
+
       <ServicePageTwo />
     </>
   );
