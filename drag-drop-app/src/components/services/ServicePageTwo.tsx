@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import FirstImage from "../../../public/images/home/girl.jpg";
 import SecondImage from "../../../public/images/home/personcrypto.png";
+import { FaEdit } from "react-icons/fa";
 
 const ServicePageTwo = () => {
   const [title, setTitle] = useState("Our real time experiences");
@@ -23,8 +24,10 @@ const ServicePageTwo = () => {
   );
   const [editingDescription2, setEditingDescription2] = useState(false);
 
+  const [firstImageSrc, setFirstImageSrc] = useState(FirstImage);
+  const [secondImageSrc, setSecondImageSrc] = useState(SecondImage);
+
   const handleEdit = (setEditingFunction:any) => {
-    console.log("COMING HERE")
     setEditingFunction(true);
   };
 
@@ -36,25 +39,65 @@ const ServicePageTwo = () => {
     setEditingFunction(false);
   };
 
+  const handleImageChange = (setImageSrc: any) => (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("Comig here in image change")
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setImageSrc(e.target.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="mt-16 flex">
       <div className="relative flex-1 ml-[300px]">
         <div className="relative w-full h-full">
           <Image
-            src={FirstImage}
+            src={firstImageSrc}
             alt="Service Image"
-            className="h-full object-cover"
+            className="h-full w-full object-cover"
             objectFit="contain"
+            width={500}
+            height={500}
           />
+          <div className="absolute bottom-4 right-4">
+            <label htmlFor="bgImageInputFirst">
+              <FaEdit className="text-white cursor-pointer text-2xl" />
+            </label>
+            <input
+              id="bgImageInputFirst"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange(setFirstImageSrc)}
+            />
+          </div>
         </div>
         <div className="absolute top-1/2 left-[-200px] transform -translate-y-1/2">
           <Image
-            src={SecondImage}
+            src={secondImageSrc}
             alt="Overlay Image"
             width={300}
             height={300}
             objectFit="contain"
           />
+          <div className="absolute bottom-4 right-4">
+            <label htmlFor="bgImageInputSecond">
+              <FaEdit className="text-white cursor-pointer text-2xl" />
+            </label>
+            <input
+              id="bgImageInputSecond"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange(setSecondImageSrc)}
+            />
+          </div>
         </div>
       </div>
       <div className="flex-1 ml-8 mt-[50px]">
